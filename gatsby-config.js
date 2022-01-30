@@ -4,10 +4,13 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+//  npm install gatsby-plugin-sharp gatsby-remark-images gatsby-remark-relative-images
+
  require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+//plugin order matters, be careful
 module.exports = {
   /* Your site config here */
   siteMetadata:{
@@ -15,6 +18,13 @@ module.exports = {
     title: `Nadish's blog`
   },
   plugins: [
+    {
+      resolve: 'gatsby-source-contentful', 
+      options:{
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken:process.env.CONTENTFUL_ACESS_TOKEN
+      }
+    },
     'gatsby-plugin-sass', 
     //either as above or as an object like below, this ones pulls files from external source.
     //adds file and allFile in schema
@@ -25,6 +35,8 @@ module.exports = {
         path: `${__dirname}/src/`
       }
     }, 
+    `gatsby-plugin-image`,
+    'gatsby-plugin-sharp',
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -33,7 +45,16 @@ module.exports = {
         // GitHub Flavored Markdown mode (default: true)
         gfm: true,
         // Plugins configs
-        plugins: [],
+        plugins: [
+          'gatsby-remark-relative-images', 
+          {
+            resolve: 'gatsby-remark-images', 
+            options:{
+              maxWidth: 750, 
+              linkImagesToOriginal: false
+            }
+          }
+        ],
       },
     },
   ],
