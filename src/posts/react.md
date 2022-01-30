@@ -1,5 +1,5 @@
 ---
-title: 'great gatsby bootcamp'
+title: 'great react bootcamp'
 date: "2021-01-27" 
 
 ---
