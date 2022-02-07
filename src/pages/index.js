@@ -1,23 +1,48 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { graphql, useStaticQuery, Link } from 'gatsby';
 import Layout from '../components/layout';
+import * as indexStyles from './index.module.scss';
 
-const IndexPage = () => {
+
+const BlogPage = () => {
+
+    const data = useStaticQuery(graphql`
+        query{
+            allMarkdownRemark {
+    edges {
+        node {
+          frontmatter {
+            title
+            date(formatString: "DD/MM/YY")
+          }
+          fields{
+              slug
+          }
+        }
+      }
+    }
+        }
+    `)
+
   return (
-    <Layout>
-      <h1>Hello, I'm Marian</h1>
-      <h2>I like JS</h2>
+    <Layout> 
 
-      <ul>
-        <li>
-          <Link to='/contact'>Contact</Link>
-        </li>
-        <li>
-          <Link to='/about'>About</Link>
-        </li>
+      
+      <ul className={indexStyles.blogList}>
+          {data.allMarkdownRemark.edges.map((edge)=>{
+              return(
+                  <li className={indexStyles.blogListItem}> 
+                      <Link style={{ textDecoration: 'none' }} to={`/blog/${edge.node.fields.slug}`}>
+                        <p className={indexStyles.blogTitle}>{edge.node.frontmatter.title}</p>
+                        
+                      </Link>
+                      <p className={indexStyles.date}>{edge.node.frontmatter.date}</p>
+                  </li>
+              )
+          })}
       </ul>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default BlogPage;

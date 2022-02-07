@@ -1,0 +1,21 @@
+.blogList{
+    list-style-type: none;
+  }
+
+.blogTitle{
+    color: #ED5F5E;
+    font-weight: bold;
+    
+}
+
+.date{
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.blogListItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}

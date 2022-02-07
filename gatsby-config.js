@@ -12,9 +12,10 @@ module.exports = {
   /* Your site config here */
   siteMetadata:{
     author: 'Nadish Sood',
-    title: `Nadish's blog`
+    title: `nadish.sood`
   },
   plugins: [
+    
     'gatsby-plugin-sass', 
     //either as above or as an object like below, this ones pulls files from external source.
     //adds file and allFile in schema
@@ -22,7 +23,14 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options:{
         name: 'src', 
-        path: `${__dirname}/src/`
+        path: `${__dirname}/src/posts`
+      }
+    }, 
+    {
+      resolve: 'gatsby-source-filesystem',
+      options:{
+        name: 'src', 
+        path: `${__dirname}/src/images`
       }
     }, 
     {
@@ -34,6 +42,28 @@ module.exports = {
         gfm: true,
         // Plugins configs
         plugins: [],
+      },
+    },
+    `gatsby-plugin-sharp`, 
+    `gatsby-transformer-sharp`, 
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/posts`,
       },
     },
   ],

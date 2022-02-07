@@ -1,36 +1,63 @@
-import React from 'react';
-import { Link } from 'gatsby';
+import React from "react"
+import { Link, graphql, useStaticQuery } from 'gatsby';
+
 import * as headerStyles from './header.module.scss';
-import { graphql, useStaticQuery } from 'gatsby';
 
 const Header = () => {
 
     const data = useStaticQuery(graphql`
-    query{
-        site{
-          siteMetadata{
-            title,
-            author
+      query {
+        site {
+          siteMetadata {
+            title
           }
         }
-    }`,
-  );
-  const siteMetadata = data.site.siteMetadata;
-
+      }
+    `)
   return (
-    <header className={headerStyles.header}>
-      <h1>
-        <Link className={headerStyles.title} to='/'>{siteMetadata.title}</Link></h1>
-      <nav>
-        <ul className={headerStyles.navList}>
-          <li><Link className={headerStyles.navItem} activeClassName={headerStyles.navItemActive} to='/'>Home</Link></li>
-          <li><Link className={headerStyles.navItem} activeClassName={headerStyles.navItemActive} to='/blog'>Blog</Link></li>
-          <li><Link className={headerStyles.navItem} activeClassName={headerStyles.navItemActive} to='/about'>About</Link></li>
-          {/* <li><Link className={headerStyles.navItem} activeClassName={headerStyles.navItemActive} to='/contact'>Contact</Link></li> */}
-        </ul>
-      </nav>
-    </header>
-  );
-};
+    <div className={headerStyles.headerContainer}>
+      <div className={headerStyles.leftTitle}>
+        
+            <Link className={headerStyles.title} to="/">
+              {data.site.siteMetadata.title}
+            </Link>
+          
+      </div>
+      <div className={headerStyles.rightMenu}>
+          <ul className={headerStyles.navList}>
+
+            <li>
+              <a
+                className={headerStyles.navItem}
+                href="https://twitter.com/nadishsood"
+                activeClassName={headerStyles.activeNavItem}
+              >
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a
+                className={headerStyles.navItem}
+                href="https://www.instagram.com/nadishsood/"
+                activeClassName={headerStyles.activeNavItem}
+              >
+                Instagram
+              </a>
+            </li>
+            {/* <li>
+              <a
+                className={headerStyles.navItem}
+                href="/about"
+                activeClassName={headerStyles.activeNavItem}
+              >
+                About
+              </a>
+            </li> */}
+          </ul>
+      </div>
+    </div>
+
+  )
+}
 
 export default Header;

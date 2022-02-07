@@ -17,7 +17,7 @@ const siteMetadata = data.site.siteMetadata;
 
   return (
     <div>
-      <h4>Created by {siteMetadata.author} @ april 2020</h4>
+      <h6>Disclaimer: Personal opinions by {siteMetadata.author}</h6>
     </div>
   )
 }

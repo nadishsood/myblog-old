@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from '../components/layout';
 import { graphql } from 'gatsby';
+import * as blogStyles from './blog.module.scss';
+
 
 
 //this query puts data on props - diff than query in normal pages.
@@ -15,7 +17,7 @@ export const query = graphql`
   ){
       frontmatter{
         title
-        date
+        date(formatString: "DD MMMM, YYYY")
       }
       html
     }
@@ -27,9 +29,10 @@ const Blog = (props) => {
 
   return (
     <Layout>
-      <h1>{props.data.markdownRemark.frontmatter.title}</h1>
-      <p>{props.data.markdownRemark.frontmatter.date}</p>
-      <div dangerouslySetInnerHTML={
+      <p className={blogStyles.date}>{props.data.markdownRemark.frontmatter.date}</p>
+      <h2>{props.data.markdownRemark.frontmatter.title}</h2>
+      
+      <div className={blogStyles.blogPostStyles} dangerouslySetInnerHTML={
         {
           __html: props.data.markdownRemark.html,
         }
